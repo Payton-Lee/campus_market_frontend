@@ -223,7 +223,7 @@ export default function Role() {
         return "系统管理员";
       case "1":
         return "用户管理员";
-      case "3":
+      case "2":
         return "商户管理";
       default:
         return "普通用户";
