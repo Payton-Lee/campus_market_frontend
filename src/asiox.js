@@ -199,3 +199,50 @@ export const addNewImage = async (image) => {
     return e
   }
 }
+
+export const orderList = async (params) => {
+  try {
+    const res = await instance.get("/order/orderList", {
+      params
+    });
+    return res.data;
+  } catch (e) {
+    return e
+  }
+}
+
+export const getGoodsByOrderId = async (orderId) => {
+  try {
+    const res = await instance.get(`/order/getGoodsByOrderId/${orderId}`);
+    return res.data;
+  } catch (e) {
+    return e
+  }
+}
+
+export const orderPay = async (orderId, payStatus) => {
+  try {
+    const res = await instance.put(`/order/${orderId}/orderPay/${payStatus}`);
+    return res.data;
+  } catch (e) {
+    return e
+  }
+}
+
+export const orderSend = async (orderId, isSend) => {
+  try {
+    const res = await instance.put(`/order/${orderId}/orderSend/${isSend}`);
+    return res.data;
+  } catch (e) {
+    return e
+  }
+}
+
+export const getSalesData = async () => {
+  try {
+    const res = await instance.get("/goods/getSalesData");
+    return res.data;
+  } catch (e) {
+    return e
+  }
+}
