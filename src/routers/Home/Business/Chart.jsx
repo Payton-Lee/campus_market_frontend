@@ -20,7 +20,7 @@ export default function Chart() {
     });
   }, []);
 
-  const chartOption = (salesDataInfo) => {
+  const barChartOption = (salesDataInfo) => {
     return {
       // title: {
       //   text: "商品销售数据",
@@ -57,6 +57,48 @@ export default function Chart() {
     };
   };
 
+  const pieChartOption = (salesDataInfo) => {
+    return {
+      // title: {
+      //   text: "商品销售数据",
+      //   textAlign: "center",
+      // },
+      tooltip: {
+        trigger: "item",
+      },
+      toolbox: {
+        tooltip: {
+          show: true,
+        },
+      },
+      legend: {
+        orient: "vertical",
+        left: "left",
+      },
+      series: [
+        {
+          data: salesDataInfo.map((item) => ({
+            value: item.count,
+            name: item.goods,
+          })),
+          type: "pie",
+          radius: "70%",
+          showBackground: true,
+          backgroundStyle: {
+            color: "rgba(180, 180, 180, 0.2)",
+          },
+          emphasis: {
+            itemStyle: {
+              shadowBlur: 10,
+              shadowOffsetX: 0,
+              shadowColor: "rgba(0, 0, 0, 0.5)",
+            },
+          },
+        },
+      ],
+    };
+  };
+
   const colunms = [
     {
       title: "序号",
@@ -75,12 +117,21 @@ export default function Chart() {
 
   return (
     <div>
-      <Table
-        bordered
-        dataSource={salesData}
-        columns={colunms}
-        pagination={false}
-      />
+      <div
+        style={{
+          height: 395,
+        }}
+      >
+        <Table
+          bordered
+          dataSource={salesData}
+          columns={colunms}
+          // pagination={false}
+          pagination={{
+            pageSize: 5,
+          }}
+        />
+      </div>
       {salesData && salesData.length && (
         <div
           style={{
@@ -90,8 +141,10 @@ export default function Chart() {
             fontSize: 20,
           }}
         >
-          <h3>商品销售数据</h3>
-          <EChartsReact option={chartOption(salesData)} />
+          <h3>商品销售数据柱状图</h3>
+          <EChartsReact option={barChartOption(salesData)} />
+          <h3>商品销售数据饼状图</h3>
+          <EChartsReact option={pieChartOption(salesData)} />
         </div>
       )}
     </div>
